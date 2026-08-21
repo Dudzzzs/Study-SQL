@@ -36,3 +36,23 @@ UPDATE clientes SET nome = UPPER(nome) WHERE id = 4;
 
 SELECT * FROM clientes WHERE nome in ('EDUARDO', 'ALICE');
 SELECT * FROM clientes WHERE nome LIKE 'EDUA%' or nome LIKE '%ICE';
+
+ALTER TABLE clientes
+ADD COLUMN pontos INT DEFAULT 0;
+ALTER TABLE clientes
+RENAME COLUMN id TO id_clientes;
+
+SELECT *, pontos + 5 AS adicao_de_pontos FROM clientes;
+
+ALTER TABLE clientes
+ADD COLUMN data_cadastro VARCHAR(100) DEFAULT '2026-08-20 21:20:00 +0000 UTC';
+
+UPDATE clientes
+SET data_cadastro = STR_TO_DATE(SUBSTRING(data_cadastro,1,19), '%Y-%m-%d %H:%i:%s');
+
+ALTER TABLE clientes
+MODIFY data_cadastro DATETIME;
+
+SELECT id_clientes, data_cadastro, DATE_FORMAT(data_cadastro, '%d/%m/%Y as %H:%i em uma %W') as data_formatada FROM clientes; 
+
+
